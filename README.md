@@ -1,2 +1,3 @@
 # inventory
-Backend for an inventory application
+Backend for an internal inventory application.
+
