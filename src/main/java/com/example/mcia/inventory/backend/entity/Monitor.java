@@ -1,12 +1,12 @@
 package com.example.mcia.inventory.backend.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 @Entity(name = "Monitor")
 public class Monitor extends Device{
 
@@ -20,5 +20,5 @@ public class Monitor extends Device{
 
     @Column private Boolean enabled = true;
 
-    @OneToMany private Employee user;  //redundant since computer has already his field
+    @ManyToMany private Employee user;  //redundant since computer has already his field
 }

@@ -1,8 +1,11 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 public class License {
 
@@ -17,16 +20,16 @@ public class License {
 
     @Column String dongle;
 
-    @Column Supplier supplier;
-
-    @Column Date dischargeDate;
+    @Column Date activationDate;
 
     @Column Date renewalDate;
+
+    @Column String renewalType;
+
+    @ManyToOne Supplier supplier;
 
     @OneToOne Computer pc;
 
     //redundant user field, computer has already this field
-
-    @ManyToOne Project project;
 
 }

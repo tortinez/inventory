@@ -1,8 +1,11 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 public class Employee {
 
@@ -13,11 +16,13 @@ public class Employee {
 
     @Column String email;
 
-    @Column Date startDate;
+    @Column String position;
+
+    @Column Date startingDate;
 
     @Column Date leavingDate;
 
-    @ManyToMany Project project;
-
     @Column String comments;
+
+    @ManyToMany Project project;
 }

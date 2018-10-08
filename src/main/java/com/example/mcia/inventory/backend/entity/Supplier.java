@@ -1,19 +1,21 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
+import javax.persistence.*;
+
+@Data
+@Entity
 public class Supplier {
 
-    private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id private Long id;
 
-    private String phone;
+    @Column private String name;
 
-    private String CIF;
+    @Column private String phone;
 
-    private String contact;
+    @Column private String CIF;
 
-    public Supplier(String name, String phone, String CIF, String contact) {
-        this.name = name;
-        this.phone = phone;
-        this.CIF = CIF;
-        this.contact = contact;
-    }
+    @Column private String contact;
 }

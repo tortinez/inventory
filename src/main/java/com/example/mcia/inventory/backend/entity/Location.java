@@ -1,7 +1,10 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 public class Location {
 
@@ -14,6 +17,6 @@ public class Location {
 
     @Column String office;
 
-    @Column String socket;
+    @Column String networkSocket;
 
 }

@@ -1,8 +1,11 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Device {
@@ -16,7 +19,7 @@ public abstract class Device {
 
     @Column(unique = true) protected String label;
 
-    @Column protected Location location;
+    @ManyToOne protected Location location;
 
     @Column protected Date removalDate;
 }

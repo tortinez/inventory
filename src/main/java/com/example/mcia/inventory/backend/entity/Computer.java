@@ -1,5 +1,7 @@
 package com.example.mcia.inventory.backend.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -7,6 +9,7 @@ import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 @Entity(name = "Computer")
 public class Computer extends Device{
 
@@ -22,7 +25,7 @@ public class Computer extends Device{
 
     @Column private Date purchaseDate;
 
-    @Column private String socket;
+    @Column private String networkSocket;
 
     @Column private String specificHardware;
 
