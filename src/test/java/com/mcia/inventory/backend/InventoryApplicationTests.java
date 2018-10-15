@@ -1,4 +1,4 @@
-package com.example.mcia.inventory.backend;
+package com.mcia.inventory.backend;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

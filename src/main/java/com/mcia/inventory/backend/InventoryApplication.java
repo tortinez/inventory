@@ -1,4 +1,4 @@
-package com.example.mcia.inventory.backend;
+package com.mcia.inventory.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
