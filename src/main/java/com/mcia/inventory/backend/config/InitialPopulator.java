@@ -55,45 +55,65 @@ class InitialPopulator {
                     new Employee(null, "Victor Martínez", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Enric Sala", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Luis Romeral", "", "", randomDate(), randomDate(), ""),
-                    new Employee(null, "Carles Colls", "", "", randomDate(), randomDate(), "")));
+                    new Employee(null, "Carles Colls", "", "", randomDate(), randomDate(), ""),
+                    new Employee(null, "Isaac Newton", "", "", randomDate(), randomDate(), ""),
+                    new Employee(null, "Johannes Kepler", "", "", randomDate(), randomDate(), ""),
+                    new Employee(null, "Von Braun", "", "", randomDate(), randomDate(), "")));
             log.info("Created {} employees", employeeRepository.count());
 
             List<Project> projects = projectRepository.saveAll(Arrays.asList(
                     new Project(null, "ECOBULK", "ECO", randomDate(), randomDate(), randEnt(employees),
-                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(randEnt(employees), randEnt(employees)))));
+                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(0))),
+                    new Project(null, "MOSCOSINUS", "MOSC", randomDate(), randomDate(), randEnt(employees),
+                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(3)))));
             log.info("Created {} projects", projectRepository.count());
 
             for (int i = 0; i < 20; i++) {
                 otherDeviceRepository.save(
-                        new OtherDevice(null, "samsung", randomCode(4), randomCode(3),
+                        new OtherDevice(null, "samsung", randomCode(6), randomCode(8),
                                 randEnt(locations), randomDate(), randEnt(otherDevicesTypes), "01-05-14", randEnt(employees)));
             }
             log.info("Created {} other Devices", otherDeviceRepository.count());
 
             List<Printer> printers = printerRepository.saveAll(Arrays.asList(
-                    new Printer(null, "samsung", randomCode(4), randomCode(3), randEnt(locations),
+                    new Printer(null, "samsung", randomCode(6), randomCode(8), randEnt(locations),
                             randomDate(), "202", "101", "01-12-10", randEnt(employees)),
-                    new Printer(null, "epson", randomCode(4), randomCode(3), randEnt(locations),
+                    new Printer(null, "epson", randomCode(6), randomCode(8), randEnt(locations),
                             randomDate(), "e-302", "101", "02-11-40", randEnt(employees)),
-                    new Printer(null, "hp", randomCode(4), randomCode(3), randEnt(locations),
+                    new Printer(null, "hp", randomCode(6), randomCode(8), randEnt(locations),
                             randomDate(), "hp210", "hprgb21", "01-32-05", randEnt(employees))));
             log.info("Created {} other printers", printerRepository.count());
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 40; i++) {
                 monitorRepository.save(
-                        new Monitor(null, "samsung", randomCode(4), randomCode(3),
+                        new Monitor(null, "samsung", randomCode(6), randomCode(8),
+                                randEnt(locations), randomDate(), "1920x1080", randEnt(monitorInput),
+                                randomAmount(), randomDate(), true, Arrays.asList(randEnt(employees), randEnt(employees))));
+                monitorRepository.save(
+                        new Monitor(null, "benq", randomCode(6), randomCode(8),
+                                randEnt(locations), randomDate(), "720x480", randEnt(monitorInput),
+                                randomAmount(), randomDate(), true, Arrays.asList(randEnt(employees), randEnt(employees))));
+                monitorRepository.save(
+                        new Monitor(null, "LG", randomCode(6), randomCode(8),
                                 randEnt(locations), randomDate(), "1920x1080", randEnt(monitorInput),
                                 randomAmount(), randomDate(), true, Arrays.asList(randEnt(employees), randEnt(employees))));
             }
             List<Monitor> monitors = monitorRepository.findAll();
             log.info("Created {} monitors", monitorRepository.count());
 
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 30; i++) {
                 computerRepository.save(
-                        new Computer(null, "samsung", randomCode(4), randomCode(3),
-                                randEnt(locations), randomDate(), "i7-67000", "kingston 8gb", "gtx-1000", "1tb",
+                        new Computer(null, "samsung", randomCode(6), randomCode(8),
+                                randEnt(locations), randomDate(), "i7-6700", "kingston 8gb", "gtx-1000", "1tb",
                                 randomAmount(), randomDate(), "01-06-15", "", true,
-                                Arrays.asList(monitors.get(i*2), monitors.get(i*2+1)),
+                                Arrays.asList(monitors.get(i * 4), monitors.get(i * 4 + 1)),
+                                Arrays.asList(randEnt(employees), randEnt(employees)),
+                                Arrays.asList(randEnt(licenses), randEnt(licenses))));
+                computerRepository.save(
+                        new Computer(null, "hp", randomCode(6), randomCode(8),
+                                randEnt(locations), randomDate(), "i5-75000", "kingston 8gb", "radeon M500", "500tb samsung",
+                                randomAmount(), randomDate(), "01-20-11", "", false,
+                                Arrays.asList(monitors.get(i * 4 + 2), monitors.get(i * 4 + 3)),
                                 Arrays.asList(randEnt(employees), randEnt(employees)),
                                 Arrays.asList(randEnt(licenses), randEnt(licenses))));
             }
@@ -102,14 +122,14 @@ class InitialPopulator {
     }
 
     private Date randomDate() {
-        Long limit = 90 * 24 * 60 * 60 * 1000L;
-        Long shift = new Double(limit * (rand.nextDouble() - .5)).longValue();
+        long limit = 90 * 24 * 60 * 60 * 1000L;
+        long shift = new Double(limit * (rand.nextDouble() - .5)).longValue();
         return new Date(System.currentTimeMillis() - shift);
     }
 
     private String randomCode(int length) {
         String uuid = UUID.randomUUID().toString();
-        return uuid.substring(length);
+        return uuid.substring(uuid.length()-length);
     }
 
     private BigDecimal randomAmount() {

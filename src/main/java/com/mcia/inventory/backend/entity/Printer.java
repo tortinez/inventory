@@ -22,7 +22,7 @@ public class Printer extends Device{
 
     @Column private String  cartridgeCMY;
 
-    @Column private String socket;
+    @Column private String networkSocket;
 
     @ManyToOne private Employee responsible;
 
@@ -31,11 +31,11 @@ public class Printer extends Device{
     Manually generated constructor because Lombok does not support superclasses https://code-examples.net/en/q/1c5cc2e
      */
     public Printer(Long id, String brand, String model, String label, Location location, Date removalDate,
-                   String cartridgeK, String cartridgeCMY, String socket, Employee responsible) {
+                   String cartridgeK, String cartridgeCMY, String networkSocket, Employee responsible) {
         super(id, brand, model, label, location, removalDate);
         this.cartridgeK = cartridgeK;
         this.cartridgeCMY = cartridgeCMY;
-        this.socket = socket;
+        this.networkSocket = networkSocket;
         this.responsible = responsible;
     }
 }
