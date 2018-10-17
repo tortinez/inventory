@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -15,18 +16,26 @@ abstract class BaseController<T> {
     private final BaseRepository<T> repository;
 
     @GetMapping
-    List<T> all() {
+    Iterable<T> all() {
         log.debug("GET");
         return repository.findAll();
     }
 
+    @GetMapping("/{id}")
+    Optional<T> findById(@PathVariable Long id){
+        log.debug("GET {}", id);
+        return repository.findById(id);
+    }
 
-//    @GetMapping("/{id}")
-//
 //    @PostMapping
-//
+
 //    @PutMapping("/{id")
-//
-//    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Long id){
+        log.debug("DELETE {}",id);
+        repository.deleteById(id);
+    }
+
 
 }
