@@ -14,9 +14,9 @@ import java.util.*;
 @Configuration
 class InitialPopulator {
 
-    private Random rand = new Random();
-    private List<String> otherDevicesTypes = Arrays.asList("HDD", "SSD", "Font");
-    private List<String> monitorInput = Arrays.asList("VGA", "HDMI");
+    private final Random rand = new Random();
+    private final List<String> otherDevicesTypes = Arrays.asList("HDD", "SSD", "Font");
+    private final List<String> monitorInput = Arrays.asList("VGA", "HDMI");
 
     @Bean
     CommandLineRunner initDatabase(ComputerRepository computerRepository,
@@ -31,16 +31,18 @@ class InitialPopulator {
 
 
         return args -> {
-            List<Supplier> suppliers = supplierRepository.saveAll(Arrays.asList(
+            List<Supplier> suppliers = new ArrayList<>();
+            supplierRepository.saveAll(Arrays.asList(
                     new Supplier(null, "Autodesk", "97281234", "G45601267", "mail@autodesk.com"),
                     new Supplier(null, "Microsoft", "937124614", "B23378456", "mail@microsoft.com"),
-                    new Supplier(null, "Keil", "937384598", "F12309245", "mail@keil.com")));
+                    new Supplier(null, "Keil", "937384598", "F12309245", "mail@keil.com"))).forEach(suppliers::add);
             log.info("Created {} suppliers", supplierRepository.count());
 
-            List<Location> locations = locationRepository.saveAll(Arrays.asList(
+            List<Location> locations = new ArrayList<>();
+            locationRepository.saveAll(Arrays.asList(
                     new Location(null, "TR14", "1", "121", "01-05-14"),
                     new Location(null, "TR14", "1", "120", "02-06-13"),
-                    new Location(null, "TR14", "2", "3.6", "03-01-18")));
+                    new Location(null, "TR14", "2", "3.6", "03-01-18"))).forEach(locations::add);
             log.info("Created {} locations", locationRepository.count());
 
             for (int i = 0; i < 30; i++) {
@@ -48,24 +50,27 @@ class InitialPopulator {
                         new License(null, "windows", "ofimatica", "VL", "no", randomDate(), randomDate(), "anual", suppliers.get(2)),
                         new License(null, "IntelliJ", "IDE", "single", "no", randomDate(), randomDate(), "anual", randEnt(suppliers))));
             }
-            List<License> licenses = licenseRepository.findAll();
+            List<License> licenses = new ArrayList<>();
+            licenseRepository.findAll().forEach(licenses::add);
             log.info("Created {} licenses", licenseRepository.count());
 
-            List<Employee> employees = employeeRepository.saveAll(Arrays.asList(
+            List<Employee> employees = new ArrayList<>();
+            employeeRepository.saveAll(Arrays.asList(
                     new Employee(null, "Victor Martínez", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Enric Sala", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Luis Romeral", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Carles Colls", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Isaac Newton", "", "", randomDate(), randomDate(), ""),
                     new Employee(null, "Johannes Kepler", "", "", randomDate(), randomDate(), ""),
-                    new Employee(null, "Von Braun", "", "", randomDate(), randomDate(), "")));
+                    new Employee(null, "Von Braun", "", "", randomDate(), randomDate(), ""))).forEach(employees::add);
             log.info("Created {} employees", employeeRepository.count());
 
-            List<Project> projects = projectRepository.saveAll(Arrays.asList(
+            List<Project> projects = new ArrayList<>();
+            projectRepository.saveAll(Arrays.asList(
                     new Project(null, "ECOBULK", "ECO", randomDate(), randomDate(), randEnt(employees),
                             Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(0))),
                     new Project(null, "MOSCOSINUS", "MOSC", randomDate(), randomDate(), randEnt(employees),
-                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(3)))));
+                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(3))))).forEach(projects::add);
             log.info("Created {} projects", projectRepository.count());
 
             for (int i = 0; i < 20; i++) {
@@ -75,7 +80,7 @@ class InitialPopulator {
             }
             log.info("Created {} other Devices", otherDeviceRepository.count());
 
-            List<Printer> printers = printerRepository.saveAll(Arrays.asList(
+            printerRepository.saveAll(Arrays.asList(
                     new Printer(null, "samsung", randomCode(6), randomCode(8), randEnt(locations),
                             randomDate(), "202", "101", "01-12-10", randEnt(employees)),
                     new Printer(null, "epson", randomCode(6), randomCode(8), randEnt(locations),
@@ -98,7 +103,8 @@ class InitialPopulator {
                                 randEnt(locations), randomDate(), "1920x1080", randEnt(monitorInput),
                                 randomAmount(), randomDate(), true, Arrays.asList(randEnt(employees), randEnt(employees))));
             }
-            List<Monitor> monitors = monitorRepository.findAll();
+            List<Monitor> monitors = new ArrayList<>();
+            monitorRepository.findAll().forEach(monitors::add);
             log.info("Created {} monitors", monitorRepository.count());
 
             for (int i = 0; i < 30; i++) {
@@ -129,7 +135,7 @@ class InitialPopulator {
 
     private String randomCode(int length) {
         String uuid = UUID.randomUUID().toString();
-        return uuid.substring(uuid.length()-length);
+        return uuid.substring(uuid.length() - length);
     }
 
     private BigDecimal randomAmount() {
