@@ -28,6 +28,8 @@ public class MonitorRequest {
 
     private BigDecimal price;
 
+    private Date purchaseDate;
+
     private Boolean enabled;
 
     private List<Long> userId;
