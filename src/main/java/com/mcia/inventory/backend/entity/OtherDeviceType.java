@@ -5,26 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Location {
+public class OtherDeviceType {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id private Long id;
 
-    @Column private String building;
-
-    @Column private String floor;
-
-    @Column private String office;
-
-    @OneToMany private List<NetworkSocket> networkSocket;
+    @Column private String name;
 
 
-    public static final String RESOURCE = "location";
-
+    public static final String RESOURCE = "other-device-type";
 }

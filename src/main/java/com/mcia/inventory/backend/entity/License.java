@@ -1,11 +1,12 @@
 package com.mcia.inventory.backend.entity;
 
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class License {
 
     @Column String type;
 
-    @Column String dongle;
+    @Column boolean dongle;
 
     @Column Date activationDate;
 
@@ -32,7 +33,11 @@ public class License {
 
     @ManyToOne Supplier supplier;
 
-    //redundant user field, computer has already this field
+    @ManyToMany List<Computer> computer;
+
+    @ManyToMany List<Employee> user;
+
+    @OneToOne Project chargingProject;
 
 
     public static final String RESOURCE = "license";

@@ -8,8 +8,10 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ToString(callSuper = true)
@@ -22,7 +24,7 @@ public class Printer extends Device{
 
     @Column private String  cartridgeCMY;
 
-    @Column private String networkSocket;
+    @ManyToMany private List<NetworkSocket> networkSocket;
 
     @ManyToOne private Employee responsible;
 
@@ -34,7 +36,7 @@ public class Printer extends Device{
     Manually generated constructor because Lombok does not support superclasses https://code-examples.net/en/q/1c5cc2e
      */
     public Printer(Long id, String brand, String model, String label, Location location, Date removalDate,
-                   String cartridgeK, String cartridgeCMY, String networkSocket, Employee responsible) {
+                   String cartridgeK, String cartridgeCMY, List<NetworkSocket> networkSocket, Employee responsible) {
         super(id, brand, model, label, location, removalDate);
         this.cartridgeK = cartridgeK;
         this.cartridgeCMY = cartridgeCMY;

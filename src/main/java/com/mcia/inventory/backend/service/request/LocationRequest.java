@@ -4,6 +4,8 @@ package com.mcia.inventory.backend.service.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class LocationRequest {
@@ -14,5 +16,5 @@ public class LocationRequest {
 
     private String office;
 
-    private String networkSocket;
+    private List<Long> networkSocketId;
 }

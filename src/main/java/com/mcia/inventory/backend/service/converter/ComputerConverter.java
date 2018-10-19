@@ -2,9 +2,9 @@ package com.mcia.inventory.backend.service.converter;
 
 import com.mcia.inventory.backend.entity.*;
 import com.mcia.inventory.backend.repository.EmployeeRepository;
-import com.mcia.inventory.backend.repository.LicenseRepository;
 import com.mcia.inventory.backend.repository.LocationRepository;
 import com.mcia.inventory.backend.repository.MonitorRepository;
+import com.mcia.inventory.backend.repository.NetworkSocketRepository;
 import com.mcia.inventory.backend.service.request.ComputerRequest;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class ComputerConverter implements RequestConverter<Computer, ComputerRequest> {
 
     private LocationRepository locationRepository;
-    private LicenseRepository licenseRepository;
+    private NetworkSocketRepository networkSocketRepository;
     private MonitorRepository monitorRepository;
     private EmployeeRepository employeeRepository;
 
@@ -24,12 +24,13 @@ public class ComputerConverter implements RequestConverter<Computer, ComputerReq
     public Computer toEntity(ComputerRequest request, Long... optId) {
         Long id = (optId[0] != null) ? optId[0] : -1;
 
-        List<License> licenses = new ArrayList<>();
+
         List<Monitor> monitors = new ArrayList<>();
         List<Employee> users = new ArrayList<>();
+        List<NetworkSocket> networkSockets = new ArrayList<>();
 
         Location location = locationRepository.findById(request.getLocationId()).orElse(null);
-        licenseRepository.findAllById(request.getLicenseId()).forEach(licenses::add);
+        networkSocketRepository.findAllById(request.getNetworkSocketId()).forEach(networkSockets::add);
         monitorRepository.findAllById(request.getMonitorId()).forEach(monitors::add);
         employeeRepository.findAllById(request.getUserId()).forEach(users::add);
 
@@ -42,16 +43,18 @@ public class ComputerConverter implements RequestConverter<Computer, ComputerReq
                 request.getRemovalDate(),
                 request.getCpu(),
                 request.getRam(),
-                request.getGpu(),
-                request.getHdd(),
+                request.getGpu0(),
+                request.getGpu1(),
+                request.getHdd0(),
+                request.getHdd1(),
+                request.getHdd2(),
                 request.getPrice(),
                 request.getPurchaseDate(),
-                request.getNetworkSocket(),
                 request.getSpecificHardware(),
                 request.getEnabled(),
+                networkSockets,
                 monitors,
-                users,
-                licenses);
+                users);
     }
 
 

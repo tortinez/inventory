@@ -15,7 +15,6 @@ import java.util.*;
 class InitialPopulator {
 
     private final Random rand = new Random();
-    private final List<String> otherDevicesTypes = Arrays.asList("HDD", "SSD", "Font");
     private final List<String> monitorInput = Arrays.asList("VGA", "HDMI");
 
     @Bean
@@ -24,13 +23,40 @@ class InitialPopulator {
                                    LicenseRepository licenseRepository,
                                    LocationRepository locationRepository,
                                    MonitorRepository monitorRepository,
+                                   NetworkSocketRepository networkSocketRepository,
                                    OtherDeviceRepository otherDeviceRepository,
+                                   OtherDeviceTypeRepository otherDeviceTypeRepository,
                                    PrinterRepository printerRepository,
                                    ProjectRepository projectRepository,
                                    SupplierRepository supplierRepository) {
 
 
         return args -> {
+            List<OtherDeviceType> otherDevicesTypes = new ArrayList<>();
+            otherDeviceTypeRepository.saveAll(Arrays.asList(
+                    new OtherDeviceType(null, "HDD"),
+                    new OtherDeviceType(null, "SSD"),
+                    new OtherDeviceType(null, "Font d'alimentació"))).forEach(otherDevicesTypes::add);
+            log.info("Created {} other device types", otherDeviceTypeRepository.count());
+
+            List<NetworkSocket> networkSockets = new ArrayList<>();
+            networkSocketRepository.saveAll(Arrays.asList(
+                    new NetworkSocket(null, "01-05-15"),
+                    new NetworkSocket(null, "01-05-16"),
+                    new NetworkSocket(null, "01-06-18"),
+                    new NetworkSocket(null, "02-06-19"),
+                    new NetworkSocket(null, "02-07-21"),
+                    new NetworkSocket(null, "02-07-22"),
+                    new NetworkSocket(null, "03-08-24"),
+                    new NetworkSocket(null, "03-08-25"),
+                    new NetworkSocket(null, "03-01-27"),
+                    new NetworkSocket(null, "04-01-28"),
+                    new NetworkSocket(null, "04-02-30"),
+                    new NetworkSocket(null, "04-02-31"),
+                    new NetworkSocket(null, "05-03-33"))).forEach(networkSockets::add);
+            log.info("Created {} network sockets", networkSocketRepository.count());
+
+
             List<Supplier> suppliers = new ArrayList<>();
             supplierRepository.saveAll(Arrays.asList(
                     new Supplier(null, "Autodesk", "97281234", "G45601267", "mail@autodesk.com"),
@@ -40,19 +66,11 @@ class InitialPopulator {
 
             List<Location> locations = new ArrayList<>();
             locationRepository.saveAll(Arrays.asList(
-                    new Location(null, "TR14", "1", "121", "01-05-14"),
-                    new Location(null, "TR14", "1", "120", "02-06-13"),
-                    new Location(null, "TR14", "2", "3.6", "03-01-18"))).forEach(locations::add);
+                    new Location(null, "TR14", "1", "121", Arrays.asList(randEnt(networkSockets))),
+                    new Location(null, "TR14", "1", "120", Arrays.asList(randEnt(networkSockets))),
+                    new Location(null, "TR14", "2", "3.6", Arrays.asList(randEnt(networkSockets))))).forEach(locations::add);
             log.info("Created {} locations", locationRepository.count());
 
-            for (int i = 0; i < 30; i++) {
-                licenseRepository.saveAll(Arrays.asList(
-                        new License(null, "windows", "ofimatica", "VL", "no", randomDate(), randomDate(), "anual", suppliers.get(2)),
-                        new License(null, "IntelliJ", "IDE", "single", "no", randomDate(), randomDate(), "anual", randEnt(suppliers))));
-            }
-            List<License> licenses = new ArrayList<>();
-            licenseRepository.findAll().forEach(licenses::add);
-            log.info("Created {} licenses", licenseRepository.count());
 
             List<Employee> employees = new ArrayList<>();
             employeeRepository.saveAll(Arrays.asList(
@@ -67,26 +85,24 @@ class InitialPopulator {
 
             List<Project> projects = new ArrayList<>();
             projectRepository.saveAll(Arrays.asList(
-                    new Project(null, "ECOBULK", "ECO", randomDate(), randomDate(), randEnt(employees),
-                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(0))),
-                    new Project(null, "MOSCOSINUS", "MOSC", randomDate(), randomDate(), randEnt(employees),
-                            Arrays.asList(randEnt(licenses), randEnt(licenses)), Arrays.asList(employees.get(3))))).forEach(projects::add);
+                    new Project(null, "ECOBULK", "ECO", randomDate(), randomDate(), randEnt(employees), Arrays.asList(randEnt(employees))),
+                    new Project(null, "MOSCOSINUS", "MOSC", randomDate(), randomDate(), randEnt(employees), Arrays.asList(randEnt(employees))))).forEach(projects::add);
             log.info("Created {} projects", projectRepository.count());
 
             for (int i = 0; i < 20; i++) {
                 otherDeviceRepository.save(
                         new OtherDevice(null, "samsung", randomCode(6), randomCode(8),
-                                randEnt(locations), randomDate(), randEnt(otherDevicesTypes), "01-05-14", randEnt(employees)));
+                                randEnt(locations), randomDate(), randEnt(otherDevicesTypes), Arrays.asList(randEnt(networkSockets)), randEnt(employees)));
             }
             log.info("Created {} other Devices", otherDeviceRepository.count());
 
             printerRepository.saveAll(Arrays.asList(
                     new Printer(null, "samsung", randomCode(6), randomCode(8), randEnt(locations),
-                            randomDate(), "202", "101", "01-12-10", randEnt(employees)),
+                            randomDate(), "202", "101", Arrays.asList(randEnt(networkSockets)), randEnt(employees)),
                     new Printer(null, "epson", randomCode(6), randomCode(8), randEnt(locations),
-                            randomDate(), "e-302", "101", "02-11-40", randEnt(employees)),
+                            randomDate(), "e-302", "101", Arrays.asList(randEnt(networkSockets)), randEnt(employees)),
                     new Printer(null, "hp", randomCode(6), randomCode(8), randEnt(locations),
-                            randomDate(), "hp210", "hprgb21", "01-32-05", randEnt(employees))));
+                            randomDate(), "hp210", "hprgb21", Arrays.asList(randEnt(networkSockets)), randEnt(employees))));
             log.info("Created {} other printers", printerRepository.count());
 
             for (int i = 0; i < 40; i++) {
@@ -110,20 +126,37 @@ class InitialPopulator {
             for (int i = 0; i < 30; i++) {
                 computerRepository.save(
                         new Computer(null, "samsung", randomCode(6), randomCode(8),
-                                randEnt(locations), randomDate(), "i7-6700", "kingston 8gb", "gtx-1000", "1tb",
-                                randomAmount(), randomDate(), "01-06-15", "", true,
+                                randEnt(locations), randomDate(), "i7-6700", "kingston 8gb", "gtx-1000",
+                                "gtx-940", "500gb", "1tb", "200mb", randomAmount(), randomDate(),
+                                "", true, Arrays.asList(randEnt(networkSockets)),
                                 Arrays.asList(monitors.get(i * 4), monitors.get(i * 4 + 1)),
-                                Arrays.asList(randEnt(employees), randEnt(employees)),
-                                Arrays.asList(randEnt(licenses), randEnt(licenses))));
+                                Arrays.asList(randEnt(employees), randEnt(employees))));
                 computerRepository.save(
                         new Computer(null, "hp", randomCode(6), randomCode(8),
-                                randEnt(locations), randomDate(), "i5-75000", "kingston 8gb", "radeon M500", "500tb samsung",
-                                randomAmount(), randomDate(), "01-20-11", "", false,
+                                randEnt(locations), randomDate(), "i5-75000", "kingston 8gb", "radeon M500",
+                                "gtx-1050", "500tb samsung", "500gb", "1tb", randomAmount(), randomDate(),
+                                "", false, Arrays.asList(randEnt(networkSockets)),
                                 Arrays.asList(monitors.get(i * 4 + 2), monitors.get(i * 4 + 3)),
-                                Arrays.asList(randEnt(employees), randEnt(employees)),
-                                Arrays.asList(randEnt(licenses), randEnt(licenses))));
+                                Arrays.asList(randEnt(employees), randEnt(employees))));
             }
+            List<Computer> computers = new ArrayList<>();
+            computerRepository.findAll().forEach(computers::add);
             log.info("Created {} computers", computerRepository.count());
+
+            for (int i = 0; i < 30; i++) {
+                licenseRepository.saveAll(Arrays.asList(
+                        new License(null, "windows", "ofimatica", "VL", true, randomDate(),
+                                randomDate(), "anual", suppliers.get(2),
+                                Arrays.asList(randEnt(computers), randEnt(computers)),
+                                Arrays.asList(randEnt(employees), randEnt(employees)), randEnt(projects)),
+                        new License(null, "IntelliJ", "IDE", "single", false, randomDate(),
+                                randomDate(), "anual", suppliers.get(2),
+                                Arrays.asList(randEnt(computers), randEnt(computers)),
+                                Arrays.asList(randEnt(employees), randEnt(employees)), randEnt(projects))));
+            }
+            List<License> licenses = new ArrayList<>();
+            licenseRepository.findAll().forEach(licenses::add);
+            log.info("Created {} licenses", licenseRepository.count());
         };
     }
 

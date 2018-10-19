@@ -26,23 +26,27 @@ public class ComputerRequest {
 
     private String ram;
 
-    private String gpu;
+    private String gpu0;
 
-    private String hdd;
+    private String gpu1;
+
+    private String hdd0;
+
+    private String hdd1;
+
+    private String hdd2;
 
     private BigDecimal price;
 
     private Date purchaseDate;
 
-    private String networkSocket;
-
     private String specificHardware;
 
     private Boolean enabled;
 
+    private List<Long> networkSocketId;
+
     private List<Long> monitorId;
 
-    private List<Long> userId;  //it can be @ManyToMany?
-
-    private List<Long> licenseId;
+    private List<Long> userId;
 }

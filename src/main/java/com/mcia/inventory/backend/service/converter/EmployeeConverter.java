@@ -1,6 +1,6 @@
 package com.mcia.inventory.backend.service.converter;
 
-import com.mcia.inventory.backend.entity.*;
+import com.mcia.inventory.backend.entity.Employee;
 import com.mcia.inventory.backend.service.request.EmployeeRequest;
 import org.springframework.stereotype.Component;
 

@@ -27,8 +27,6 @@ public class Project {
     @Column private Date endDate;
     
     @ManyToOne private Employee manager;
-    
-    @ManyToMany private List<License> license;
 
     @OneToMany private List<Employee> employee;
 

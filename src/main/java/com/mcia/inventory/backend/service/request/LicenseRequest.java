@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class LicenseRequest {
 
     private String type;
 
-    private String dongle;
+    private boolean dongle;
 
     private Date activationDate;
 
@@ -25,4 +26,11 @@ public class LicenseRequest {
     private String renewalType;
 
     private Long supplierId;
+
+    private List<Long> computerId;
+
+    private List<Long> userId;
+
+    private Long projectId;
+
 }

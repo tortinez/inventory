@@ -6,7 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Monitor extends Device{
 
     @Column private Boolean enabled = true;
 
-    @ManyToMany private List<Employee> user;  //redundant since computer has already his field
+    @ManyToMany private List<Employee> user;
 
 
     public static final String RESOURCE = "monitor";

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,9 +21,9 @@ public class OtherDeviceRequest {
 
     private Date removalDate;
 
-    private String type;
+    private Long typeId;
 
-    private String networkSocket;
+    private List<Long> networkSocketId;
 
     private Long responsibleId;
 }

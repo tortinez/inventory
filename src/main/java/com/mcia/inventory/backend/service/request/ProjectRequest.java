@@ -21,7 +21,5 @@ public class ProjectRequest {
 
     private Long managerId;
 
-    private List<Long> licenseId;
-
     private List<Long> employeeId;
 }

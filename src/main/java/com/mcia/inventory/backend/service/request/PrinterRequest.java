@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class PrinterRequest {
 
     private String cartridgeCMY;
 
-    private String networkSocket;
+    private List<Long> networkSocketId;
 
     private Long responsibleId;
 }
