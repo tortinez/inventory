@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ProjectController.URI)
 public class ProjectController extends BaseController<Project>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/project";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Project.RESOURCE;
 
 
     protected ProjectController(ProjectRepository repository){

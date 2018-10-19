@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(EmployeeController.URI)
 public class EmployeeController extends BaseController<Employee>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/employee";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Employee.RESOURCE;
 
 
     protected EmployeeController(EmployeeRepository repository){

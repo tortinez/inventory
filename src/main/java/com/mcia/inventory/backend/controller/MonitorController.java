@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(MonitorController.URI)
 public class MonitorController extends BaseController<Monitor>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/monitor";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Monitor.RESOURCE;
 
 
     protected MonitorController(MonitorRepository repository){

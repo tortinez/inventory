@@ -21,4 +21,7 @@ public class Location {
 
     @Column private String networkSocket;
 
+
+    public static final String RESOURCE = "location";
+
 }

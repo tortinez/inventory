@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(LocationController.URI)
 public class LocationController extends BaseController<Location>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/location";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Location.RESOURCE;
 
 
     protected LocationController(LocationRepository repository){

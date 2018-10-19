@@ -34,4 +34,7 @@ public class License {
 
     //redundant user field, computer has already this field
 
+
+    public static final String RESOURCE = "license";
+
 }

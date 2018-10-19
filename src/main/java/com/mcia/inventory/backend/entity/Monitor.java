@@ -31,6 +31,8 @@ public class Monitor extends Device{
     @ManyToMany private List<Employee> user;  //redundant since computer has already his field
 
 
+    public static final String RESOURCE = "monitor";
+
     /*
     Manually generated constructor because Lombok does not support superclasses https://code-examples.net/en/q/1c5cc2e
      */

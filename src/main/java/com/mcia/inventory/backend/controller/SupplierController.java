@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(SupplierController.URI)
 public class SupplierController extends BaseController<Supplier>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/supplier";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Supplier.RESOURCE;
 
 
     protected SupplierController(SupplierRepository repository){

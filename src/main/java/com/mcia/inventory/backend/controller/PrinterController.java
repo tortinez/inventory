@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(PrinterController.URI)
 public class PrinterController extends BaseController<Printer>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/printer";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Printer.RESOURCE;
 
 
     protected PrinterController(PrinterRepository repository){

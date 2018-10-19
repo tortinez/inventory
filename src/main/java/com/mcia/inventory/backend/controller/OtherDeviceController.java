@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(OtherDeviceController.URI)
 public class OtherDeviceController extends BaseController<OtherDevice>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/other-device";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + OtherDevice.RESOURCE;
 
 
     protected OtherDeviceController(OtherDeviceRepository repository){

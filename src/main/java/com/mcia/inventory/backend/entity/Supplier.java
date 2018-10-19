@@ -22,4 +22,7 @@ public class Supplier {
     @Column private String CIF;
 
     @Column private String contact;
+
+
+    public static final String RESOURCE = "supplier";
 }

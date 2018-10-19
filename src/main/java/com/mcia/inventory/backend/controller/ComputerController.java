@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ComputerController.URI)
 public class ComputerController extends BaseController<Computer>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/computer";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + Computer.RESOURCE;
 
 
     protected ComputerController(ComputerRepository repository){

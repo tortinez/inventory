@@ -31,4 +31,7 @@ public class Project {
     @ManyToMany private List<License> license;
 
     @OneToMany private List<Employee> employee;
+
+
+    public static final String RESOURCE = "project";
 }

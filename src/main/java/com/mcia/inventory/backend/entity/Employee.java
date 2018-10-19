@@ -28,4 +28,7 @@ public class Employee {
     @Column private Date leavingDate;
 
     @Column private String comments;
+
+
+    public static final String RESOURCE = "employee";
 }

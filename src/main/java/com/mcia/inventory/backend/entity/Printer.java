@@ -27,6 +27,9 @@ public class Printer extends Device{
     @ManyToOne private Employee responsible;
 
 
+    public static final String RESOURCE = "printer";
+
+
     /*
     Manually generated constructor because Lombok does not support superclasses https://code-examples.net/en/q/1c5cc2e
      */

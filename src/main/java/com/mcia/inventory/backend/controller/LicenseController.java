@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(LicenseController.URI)
 public class LicenseController extends BaseController<License>{
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/license";
+    public static final String URI = WebConfig.BASE_API_PATH + "/" + License.RESOURCE;
 
 
     protected LicenseController(LicenseRepository repository){
