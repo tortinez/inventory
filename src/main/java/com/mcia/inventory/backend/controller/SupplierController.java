@@ -2,19 +2,20 @@ package com.mcia.inventory.backend.controller;
 
 import com.mcia.inventory.backend.config.WebConfig;
 import com.mcia.inventory.backend.entity.Supplier;
-import com.mcia.inventory.backend.repository.SupplierRepository;
+import com.mcia.inventory.backend.service.SupplierService;
+import com.mcia.inventory.backend.service.request.SupplierRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(SupplierController.URI)
-public class SupplierController extends BaseController<Supplier>{
+public class SupplierController extends BaseController<Supplier, SupplierRequest> {
 
-    public static final String URI = WebConfig.BASE_API_PATH + "/" + Supplier.RESOURCE;
+    static final String URI = WebConfig.BASE_API_PATH + "/" + Supplier.RESOURCE;
 
 
-    protected SupplierController(SupplierRepository repository){
-        super(repository);
+    protected SupplierController(SupplierService service) {
+        super(SupplierController.URI, service);
     }
 
 }
