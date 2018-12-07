@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationService extends BaseService<Location, LocationRequest> {
 
-    public LocationService(LocationRepository repository, LocationConverter converter){
+    public LocationService(LocationRepository repository, LocationConverter converter) {
         super(Location.RESOURCE, repository, converter);
     }
 

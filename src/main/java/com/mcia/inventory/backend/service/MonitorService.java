@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MonitorService extends BaseService<Monitor, MonitorRequest> {
 
-    public MonitorService(MonitorRepository repository, MonitorConverter converter){
+    public MonitorService(MonitorRepository repository, MonitorConverter converter) {
         super(Monitor.RESOURCE, repository, converter);
     }
 

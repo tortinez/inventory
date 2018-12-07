@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectService extends BaseService<Project, ProjectRequest> {
 
-    public ProjectService(ProjectRepository repository, ProjectConverter converter){
+    public ProjectService(ProjectRepository repository, ProjectConverter converter) {
         super(Project.RESOURCE, repository, converter);
     }
 

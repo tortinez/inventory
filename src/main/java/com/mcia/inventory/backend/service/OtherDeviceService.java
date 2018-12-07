@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OtherDeviceService extends BaseService<OtherDevice, OtherDeviceRequest> {
 
-    public OtherDeviceService(OtherDeviceRepository repository, OtherDeviceConverter converter){
+    public OtherDeviceService(OtherDeviceRepository repository, OtherDeviceConverter converter) {
         super(OtherDevice.RESOURCE, repository, converter);
     }
 

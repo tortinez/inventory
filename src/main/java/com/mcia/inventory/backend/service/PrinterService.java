@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrinterService extends BaseService<Printer, PrinterRequest> {
 
-    public PrinterService(PrinterRepository repository, PrinterConverter converter){
+    public PrinterService(PrinterRepository repository, PrinterConverter converter) {
         super(Printer.RESOURCE, repository, converter);
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LicenseService extends BaseService<License, LicenseRequest> {
 
-    public LicenseService(LicenseRepository repository, LicenseConverter converter){
+    public LicenseService(LicenseRepository repository, LicenseConverter converter) {
         super(License.RESOURCE, repository, converter);
     }
 

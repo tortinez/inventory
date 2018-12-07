@@ -53,7 +53,14 @@ class InitialPopulator {
                     new NetworkSocket(null, "04-01-28"),
                     new NetworkSocket(null, "04-02-30"),
                     new NetworkSocket(null, "04-02-31"),
-                    new NetworkSocket(null, "05-03-33"))).forEach(networkSockets::add);
+                    new NetworkSocket(null, "05-03-33"),
+                    new NetworkSocket(null, "05-08-24"),
+                    new NetworkSocket(null, "05-08-25"),
+                    new NetworkSocket(null, "06-01-27"),
+                    new NetworkSocket(null, "06-01-28"),
+                    new NetworkSocket(null, "06-02-30"),
+                    new NetworkSocket(null, "07-02-31"),
+                    new NetworkSocket(null, "07-03-33"))).forEach(networkSockets::add);
             log.info("Created {} network sockets", networkSocketRepository.count());
 
 

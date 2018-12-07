@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComputerService extends BaseService<Computer, ComputerRequest> {
 
-    public ComputerService(ComputerRepository repository, ComputerConverter converter){
+    public ComputerService(ComputerRepository repository, ComputerConverter converter) {
         super(Computer.RESOURCE, repository, converter);
     }
 

@@ -9,11 +9,17 @@ public class NetworkSocketConverter implements RequestConverter<NetworkSocket, N
 
 
     @Override
-    public NetworkSocket toEntity(NetworkSocketRequest request, Long... optId) {
-        Long id = (optId[0] != null) ? optId[0] : -1;
+    public NetworkSocket toEntity(NetworkSocketRequest request, Long Id) {
 
-        return new NetworkSocket(id,
+        return new NetworkSocket(Id,
                 request.getLabel());
+    }
+
+
+    @Override
+    public NetworkSocket toEntity(NetworkSocketRequest request) {
+
+        return toEntity(request, (long) -1);
     }
 
 

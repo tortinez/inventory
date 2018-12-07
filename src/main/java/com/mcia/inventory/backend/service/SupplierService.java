@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SupplierService extends BaseService<Supplier, SupplierRequest> {
 
-    public SupplierService(SupplierRepository repository, SupplierConverter converter){
+    public SupplierService(SupplierRepository repository, SupplierConverter converter) {
         super(Supplier.RESOURCE, repository, converter);
     }
 

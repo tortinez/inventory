@@ -2,17 +2,18 @@ package com.mcia.inventory.backend.service.converter;
 
 import com.mcia.inventory.backend.entity.Employee;
 import com.mcia.inventory.backend.service.request.EmployeeRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@AllArgsConstructor
 public class EmployeeConverter implements RequestConverter<Employee, EmployeeRequest> {
 
     @Override
-    public Employee toEntity(EmployeeRequest request, Long... optId) {
-        Long id = (optId[0] != null) ? optId[0] : -1;
+    public Employee toEntity(EmployeeRequest request, Long Id) {
 
-        return new Employee(id,
+        return new Employee(Id,
                 request.getFullname(),
                 request.getEmail(),
                 request.getPosition(),
@@ -21,5 +22,10 @@ public class EmployeeConverter implements RequestConverter<Employee, EmployeeReq
                 request.getComments());
     }
 
+
+    @Override
+    public Employee toEntity(EmployeeRequest request) {
+        return toEntity(request, (long) -1);
+    }
 
 }

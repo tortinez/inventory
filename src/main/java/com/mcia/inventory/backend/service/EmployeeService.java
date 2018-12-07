@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeService extends BaseService<Employee, EmployeeRequest> {
 
-    public EmployeeService(EmployeeRepository repository, EmployeeConverter converter){
+    public EmployeeService(EmployeeRepository repository, EmployeeConverter converter) {
         super(Employee.RESOURCE, repository, converter);
     }
 

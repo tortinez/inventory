@@ -5,13 +5,16 @@ import com.mcia.inventory.backend.repository.EmployeeRepository;
 import com.mcia.inventory.backend.repository.LocationRepository;
 import com.mcia.inventory.backend.repository.NetworkSocketRepository;
 import com.mcia.inventory.backend.repository.OtherDeviceTypeRepository;
+import com.mcia.inventory.backend.service.exception.ResourceNotFoundException;
 import com.mcia.inventory.backend.service.request.OtherDeviceRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class OtherDeviceConverter implements RequestConverter<OtherDevice, OtherDeviceRequest> {
 
     private LocationRepository locationRepository;
@@ -21,20 +24,25 @@ public class OtherDeviceConverter implements RequestConverter<OtherDevice, Other
 
 
     @Override
-    public OtherDevice toEntity(OtherDeviceRequest request, Long... optId) {
-        Long id = (optId[0] != null) ? optId[0] : -1;
+    public OtherDevice toEntity(OtherDeviceRequest request, Long Id) {
 
         List<NetworkSocket> networkSockets = new ArrayList<>();
 
 
-        Location location = locationRepository.findById(request.getLocationId()).orElse(null);
-        Employee responsible = employeeRepository.findById(request.getResponsibleId()).orElse(null);
-        OtherDeviceType otherDeviceType = otherDeviceTypeRepository.findById(request.getTypeId()).orElse(null);
+        Location location = locationRepository.findById(request.getLocationId())
+                .orElseThrow(() -> new ResourceNotFoundException("location id not found."));
+        Employee responsible = employeeRepository.findById(request.getResponsibleId())
+                .orElseThrow(() -> new ResourceNotFoundException("responsible id not found."));
+        OtherDeviceType otherDeviceType = otherDeviceTypeRepository.findById(request.getTypeId())
+                .orElseThrow(() -> new ResourceNotFoundException("other device type id not found."));
 
         networkSocketRepository.findAllById(request.getNetworkSocketId()).forEach(networkSockets::add);
+        if (networkSockets.size() != request.getNetworkSocketId().size()) {
+            throw new ResourceNotFoundException("one or more network-socket id not found");
+        }
 
 
-        return new OtherDevice(id,
+        return new OtherDevice(Id,
                 request.getBrand(),
                 request.getModel(),
                 request.getLabel(),
@@ -43,6 +51,12 @@ public class OtherDeviceConverter implements RequestConverter<OtherDevice, Other
                 otherDeviceType,
                 networkSockets,
                 responsible);
+    }
+
+
+    @Override
+    public OtherDevice toEntity(OtherDeviceRequest request) {
+        return toEntity(request, (long) -1);
     }
 
 

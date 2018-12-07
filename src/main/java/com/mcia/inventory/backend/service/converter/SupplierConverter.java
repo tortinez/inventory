@@ -9,14 +9,19 @@ public class SupplierConverter implements RequestConverter<Supplier, SupplierReq
 
 
     @Override
-    public Supplier toEntity(SupplierRequest request, Long... optId) {
-        Long id = (optId[0] != null) ? optId[0] : -1;
+    public Supplier toEntity(SupplierRequest request, Long Id) {
 
-        return new Supplier(id,
+        return new Supplier(Id,
                 request.getName(),
                 request.getPhone(),
                 request.getCIF(),
                 request.getContact());
+    }
+
+
+    @Override
+    public Supplier toEntity(SupplierRequest request) {
+        return toEntity(request, (long) -1);
     }
 
 

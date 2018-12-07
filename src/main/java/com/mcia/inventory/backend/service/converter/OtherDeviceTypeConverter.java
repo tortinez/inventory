@@ -9,11 +9,17 @@ public class OtherDeviceTypeConverter implements RequestConverter<OtherDeviceTyp
 
 
     @Override
-    public OtherDeviceType toEntity(OtherDeviceTypeRequest request, Long... optId) {
-        Long id = (optId[0] != null) ? optId[0] : -1;
+    public OtherDeviceType toEntity(OtherDeviceTypeRequest request, Long Id) {
 
-        return new OtherDeviceType(id,
+        return new OtherDeviceType(Id,
                 request.getName());
+    }
+
+
+    @Override
+    public OtherDeviceType toEntity(OtherDeviceTypeRequest request) {
+
+        return toEntity(request, (long) -1);
     }
 
 }
