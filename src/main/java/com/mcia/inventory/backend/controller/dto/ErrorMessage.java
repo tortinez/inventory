@@ -15,6 +15,8 @@ public class ErrorMessage {
         return new ErrorMessage("invalid request", message);
     }
 
+    public static ErrorMessage unauthorized(String message) { return new ErrorMessage("unauthorized", message); }
+
     public static ErrorMessage notFound(String message) { return new ErrorMessage("not found", message); }
 
     public static ErrorMessage conflict(String message) {

@@ -3,6 +3,7 @@ package com.mcia.inventory.backend.controller.exception;
 
 import com.mcia.inventory.backend.controller.dto.ErrorMessage;
 import com.mcia.inventory.backend.service.exception.InvalidRequestException;
+import com.mcia.inventory.backend.service.exception.UnauthorizedException;
 import com.mcia.inventory.backend.service.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         log.warn("Bad request: {}", exception.getMessage());
         ErrorMessage error = ErrorMessage.badRequest(exception.getMessage().isEmpty()? DEFAULT_REASON: exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UnauthorizedException.class)
+    public final ResponseEntity<ErrorMessage> handleUnauthorizedException(UnauthorizedException exception) {
+        log.warn("Unauthorized: {}", exception.getMessage());
+        ErrorMessage error = ErrorMessage.unauthorized(exception.getMessage().isEmpty()? DEFAULT_REASON: exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

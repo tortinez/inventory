@@ -1,0 +1,50 @@
+dn: dc=mcia,dc=com
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: mcia
+
+dn: ou=groups,dc=mcia,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=mcia,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=user,ou=people,dc=mcia,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User User
+sn: User
+uid: user
+userPassword: {SHA}Et6pb+wgWTVmq3VpLJlJWWgzrck=
+
+dn: uid=manager,ou=people,dc=mcia,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Manager Manager
+sn: Manager
+uid: manager
+userPassword: {SHA}GoVlqdxyBIugO0FWvj5WnyJ3HyM=
+
+dn: cn=user,ou=groups,dc=mcia,dc=com
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: user
+ou: user
+uniqueMember: uid=user,ou=people,dc=mcia,dc=com
+uniqueMember: uid=manager,ou=people,dc=mcia,dc=com
+
+dn: cn=manager,ou=groups,dc=mcia,dc=com
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: manager
+ou: manager
+uniqueMember: uid=manager,ou=people,dc=mcia,dc=com
