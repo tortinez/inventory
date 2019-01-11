@@ -45,6 +45,8 @@ dependencies {
 	compile("org.springframework:spring-tx")
 	compile("com.unboundid:unboundid-ldapsdk")
 	
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	
 //	runtimeOnly('mysql:mysql-connector-java')
 	runtimeOnly('com.h2database:h2')
 	

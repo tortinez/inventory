@@ -1,5 +1,8 @@
 package com.mcia.inventory.backend.config;
 
+import com.mcia.inventory.backend.config.ldap.LdapSettings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,16 +14,21 @@ import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
 import java.util.Collections;
 
 @Configuration
+@EnableConfigurationProperties(LdapSettings.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private LdapSettings ldapSettings;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/img/**").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/**").hasRole("USER")
                     .antMatchers("/api/**").hasRole("MANAGER")
-                    .and()
+                .and()
                 .httpBasic();
     }
 
@@ -42,6 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DefaultSpringSecurityContextSource contextSource() {
         return new DefaultSpringSecurityContextSource(
-                Collections.singletonList("ldap://localhost:8389"), "dc=mcia,dc=com");
+                Collections.singletonList(ldapSettings.getUrl()), ldapSettings.getBasedn());
     }
 }
